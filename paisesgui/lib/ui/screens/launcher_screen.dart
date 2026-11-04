@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paisesgui/ui/screens/continentes_screen.dart';
 import 'package:paisesgui/ui/screens/infopais_detalle.dart';
 import 'package:paisesgui/ui/screens/infopais_general.dart';
-import 'package:paisesgui/ui/screens/paises_screen.dart';
+//import 'package:paisesgui/ui/screens/paises_screen.dart';
 
 class LauncherScreen extends StatelessWidget {
   const LauncherScreen({
@@ -25,7 +25,7 @@ class LauncherScreen extends StatelessWidget {
                 );
               },
               child: const Text("Pantalla Continentes")),
-          ElevatedButton(
+          /*ElevatedButton(
               onPressed: () {
                 Navigator.push<void>(
                   context,
@@ -34,7 +34,7 @@ class LauncherScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text("Pantalla Paises")),
+              child: const Text("Pantalla Paises")),*/
           ElevatedButton(
               onPressed: () {
                 Navigator.push<void>(

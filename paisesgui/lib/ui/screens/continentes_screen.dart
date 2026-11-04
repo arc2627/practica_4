@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paisesgui/data/repositories/paises_repository.dart';
 import 'package:paisesgui/domain/entities/continente.dart';
+import 'package:paisesgui/ui/screens/paises_screen.dart';
 
 /* Pantalla ContinentesScreen: muestra cinco CircleAvatar con los distintos continentes */
 
@@ -63,10 +64,20 @@ class ContinenteRoundButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 110,
-      backgroundImage: NetworkImage(imagen),
-      child: Text(nombre, style: Theme.of(context).textTheme.displayMedium),
+    return InkWell(
+      child: CircleAvatar(
+        radius: 110,
+        backgroundImage: NetworkImage(imagen),
+        child: Text(nombre, style: Theme.of(context).textTheme.displayMedium),
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => PaisesScreen(continente: nombre),
+          ),
+        );
+      },
     );
   }
 }
