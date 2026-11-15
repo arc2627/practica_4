@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:paisesgui/data/repositories/paises_repository.dart';
 import 'package:paisesgui/domain/entities/pais.dart';
+import 'package:paisesgui/ui/screens/infopais_detalle.dart';
 
 class InfoPaisGeneral extends StatelessWidget {
-  InfoPaisGeneral({super.key});
-
+  final String nombrePais;
   // Referencia al repositorio, de donde obtendremos la lista de continentes
   final PaisesRepository _repository = PaisesRepository();
+  InfoPaisGeneral({super.key, required this.nombrePais});
 
   @override
   Widget build(BuildContext context) {
     // Recogemos el país del repositorio
-    Pais pais = _repository.infoPais();
+    Pais? pais = _repository.infoPais(nombrePais);
 
     // TO-DO
     // Añadir la información siguiente sobre el país:
@@ -22,12 +23,43 @@ class InfoPaisGeneral extends StatelessWidget {
     // Para comprobar que no os salís, podéis probar a girar el dispositivo (si lo estáis haciendo sobre Android)
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Información general",
+          style: Theme.of(context).textTheme.displayMedium,
+        ),
+      ),
       // Estructura de la pantalla Material Design
       body: Center(child: _creaPantallaPais(pais)),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+
+        onTap: (indice) {
+          if (indice == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => InfoPaisDetalle(nombrePais: nombrePais),
+              ),
+            );
+          }
+        },
+
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline),
+            label: 'General',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.analytics_outlined),
+            label: 'Detalles',
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _creaPantallaPais(Pais pais) {
+  Widget _creaPantallaPais(Pais? pais) {
     return Container(
       padding: EdgeInsets.all(20),
       child: SizedBox(
@@ -36,7 +68,7 @@ class InfoPaisGeneral extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: NetworkImage(pais.imagen ?? '')),
+            Image(image: NetworkImage(pais!.imagen!)),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
